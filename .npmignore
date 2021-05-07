@@ -1,2 +1,12 @@
 tsconfig.json
 src
+
+
+.jest-cache
+
+firebase.json
+.firebaserc
+
+ui-debug.log
+firebase-debug.log
+firestore-debug.log
