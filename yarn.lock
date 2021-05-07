@@ -598,7 +598,7 @@
     "@firebase/util" "1.1.0"
     tslib "^2.1.0"
 
-"@firebase/rules-unit-testing@^1.2.12":
+"@firebase/rules-unit-testing@1.2.12":
   version "1.2.12"
   resolved "https://registry.yarnpkg.com/@firebase/rules-unit-testing/-/rules-unit-testing-1.2.12.tgz#7842a80215556af0328c214116e1ce90d26e2694"
   integrity sha512-L6uQGP8u34FLn6ZN1SyXVqD4nlXvlj+extlW1EU4BjzscfucB7BI06cLC8K1AAEaodH980mwnUtJJ/aC7hVePg==
@@ -5809,7 +5809,7 @@ ts-invariant@^0.4.0:
   dependencies:
     tslib "^1.9.3"
 
-ts-jest@^26.5.1:
+ts-jest@26.5.6:
   version "26.5.6"
   resolved "https://registry.yarnpkg.com/ts-jest/-/ts-jest-26.5.6.tgz#c32e0746425274e1dfe333f43cd3c800e014ec35"
   integrity sha512-rua+rCP8DxpA8b4DQD/6X2HQS8Zy/xzViVYfEs2OQu68tkCuKLV0Md8pmX55+W24uRIyAsf/BajRfxOs+R2MKA==
@@ -5825,7 +5825,7 @@ ts-jest@^26.5.1:
     semver "7.x"
     yargs-parser "20.x"
 
-ts-node@^9.1.1:
+ts-node@9.1.1:
   version "9.1.1"
   resolved "https://registry.yarnpkg.com/ts-node/-/ts-node-9.1.1.tgz#51a9a450a3e959401bda5f004a72d54b936d376d"
   integrity sha512-hPlt7ZACERQGf03M253ytLY3dHbGNGrAq9qIHWUY9XHYl1z7wYngSr3OQ5xmui8o2AaxsONxIzjafLUiWBo1Fg==
