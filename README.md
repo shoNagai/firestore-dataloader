@@ -25,6 +25,9 @@ usersDataLoader: new FirestoreDataLoader<User>(db.collection(`users`)),
 
 ```
 
+The second argument can optionally declare the DataLoader options.
+For more information on how to use the dataloader options, please refer to the [dataloader](https://github.com/graphql/dataloader) repository.
+
 Resolver can receive and use data loaders from context.
 
 ```js
@@ -36,5 +39,3 @@ const Message: MessageResolvers = {
   },
 };
 ```
-
-For more information on how to use the dataloader options, please refer to the [dataloader](https://github.com/graphql/dataloader) repository.
