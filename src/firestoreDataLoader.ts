@@ -6,9 +6,8 @@ import { getDocData } from "./utils/getDocData";
 /**
  * GraphQL DataLoader for Cloud Firestore.
  */
-export default class FirestoreDataLoader<T> extends DataSource {
-  public baseQuery: firestore.CollectionReference | firestore.Query;
-  public userLoader: DataLoader<string, T & { id: string }, string>;
+export default class FirestoreDataLoader<TDocument = any> extends DataSource {
+  public dataLoader: DataLoader<string, TDocument & { id: string }, string>;
 
   /**
    * constructor
@@ -21,7 +20,7 @@ export default class FirestoreDataLoader<T> extends DataSource {
     options?:
       | Options<
           string,
-          T & {
+          TDocument & {
             id: string;
           },
           string
@@ -29,8 +28,7 @@ export default class FirestoreDataLoader<T> extends DataSource {
       | undefined
   ) {
     super();
-    this.baseQuery = baseQuery;
-    this.userLoader = new DataLoader((ids) => this.loadDataByIds(ids), {
+    this.dataLoader = new DataLoader((ids) => this.loadDataByIds(baseQuery, ids), {
       ...options,
       // maximum of 10 firestore in clauses.
       maxBatchSize: 10,
@@ -39,18 +37,22 @@ export default class FirestoreDataLoader<T> extends DataSource {
 
   /**
    * load datas by ids
+   * @param {firestore.CollectionReference | firestore.Query} baseQuery CollectionReference or Query
    * @param {string[]} ids
    * @returns documents
    */
   async loadDataByIds(
+    baseQuery: firestore.CollectionReference | firestore.Query,
     ids: readonly string[]
   ): Promise<
-    (T & {
+    (TDocument & {
       id: string;
     })[]
   > {
-    const snaps = await this.baseQuery.select().where(firestore.FieldPath.documentId(), `in`, ids).get();
-    const docs = snaps.docs.map((doc) => getDocData<T>(doc));
+    console.log("Call loadDataByIds", ids);
+    const snaps = await baseQuery.where(firestore.FieldPath.documentId(), `in`, ids).get();
+    if (snaps.empty) return [];
+    const docs = snaps.docs.map((doc) => getDocData<TDocument>(doc));
     return docs.filter((doc) => ids.includes(doc.id));
   }
 }
