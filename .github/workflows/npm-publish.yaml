@@ -23,14 +23,6 @@ jobs:
           restore-keys: ${{ runner.os }}-node12
       - name: Install
         run: yarn --frozen-lockfile
-      - name: Install can-npm-publish
-        run: yarn add can-npm-publish
-      - name: check version and add tag
-        env:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-          REPO: ${{github.repository}}
-          COMMIT: ${{github.sha}}
-        run: ./release.sh
       - name: build
         run: yarn build
       - name: release
