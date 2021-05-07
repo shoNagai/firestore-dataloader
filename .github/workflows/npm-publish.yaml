@@ -21,11 +21,15 @@ jobs:
           path: ~/.cache/yarn/
           key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
           restore-keys: ${{ runner.os }}-node12
+      - name: Can Publish
+        run: npx can-npm-publish --verbose
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
       - name: Install
         run: yarn --frozen-lockfile
-      - name: build
+      - name: Build
         run: yarn build
-      - name: release
+      - name: Publish
         run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}

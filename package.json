@@ -1,6 +1,6 @@
 {
   "name": "firestore-dataloader",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "GraphQL DataLoader for Cloud Firestore.",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
