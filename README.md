@@ -21,6 +21,8 @@ yarn add firestore-dataloader
 Initialize datasources by specifying a collection or query.
 
 ```js
+import { FirestoreDataLoader } from 'firestore-dataloader';
+
 usersDataLoader: new FirestoreDataLoader<User>(db.collection(`users`)),
 
 ```

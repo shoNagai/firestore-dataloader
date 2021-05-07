@@ -1,2 +1,8 @@
 node_modules
 lib
+
+.jest-cache
+
+ui-debug.log
+firebase-debug.log
+firestore-debug.log
