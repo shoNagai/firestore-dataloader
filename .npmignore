@@ -10,3 +10,6 @@ firebase.json
 ui-debug.log
 firebase-debug.log
 firestore-debug.log
+
+.github
+release.sh
