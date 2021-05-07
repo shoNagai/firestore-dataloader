@@ -28,10 +28,8 @@ jobs:
           REPO: ${{github.repository}}
           COMMIT: ${{github.sha}}
         run: ./release.sh
-      - name: test
-        run: npm run test
       - name: build
-        run: npm run build
+        run: yarn build
       - name: release
         run: npm publish
         env:
