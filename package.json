@@ -1,6 +1,6 @@
 {
   "name": "firestore-dataloader",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "GraphQL DataLoader for Cloud Firestore.",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -24,7 +24,10 @@
     "build": "tsc",
     "format": "prettier . -w",
     "lint": "eslint src/**/*.ts",
-    "lint:fix": "yarn lint --fix"
+    "lint:fix": "yarn lint --fix",
+    "test": "FIRESTORE_EMULATOR_HOST='localhost:8080' NODE_ENV=test jest --config ./jest.config.ts",
+    "test:ci": "firebase emulators:exec --project $PROJECT_ID 'yarn test'",
+    "emulators:start": "yarn build && firebase emulators:start"
   },
   "dependencies": {
     "apollo-datasource": "^0.9.0",
@@ -32,9 +35,10 @@
     "firebase-admin": "^9.7.0"
   },
   "devDependencies": {
+    "@firebase/rules-unit-testing": "^1.2.12",
+    "@types/jest": "26.0.23",
     "@typescript-eslint/eslint-plugin": "4.22.1",
     "@typescript-eslint/parser": "4.22.1",
-    "@types/jest": "26.0.23",
     "apollo-server-testing": "2.24.0",
     "eslint": "7.25.0",
     "eslint-config-prettier": "7.2.0",
@@ -43,6 +47,8 @@
     "jest": "26.6.3",
     "lint-staged": "10.5.4",
     "prettier": "2.2.1",
+    "ts-jest": "^26.5.1",
+    "ts-node": "^9.1.1",
     "typescript": "4.2.4"
   },
   "prettier": {

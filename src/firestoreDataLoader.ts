@@ -6,7 +6,7 @@ import { getDocData } from "./utils/getDocData";
 /**
  * GraphQL DataLoader for Cloud Firestore.
  */
-export default class FirestoreDataLoader<TDocument = any> extends DataSource {
+export class FirestoreDataLoader<TDocument = any> extends DataSource {
   public dataLoader: DataLoader<string, TDocument & { id: string }, string>;
 
   /**

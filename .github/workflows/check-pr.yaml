@@ -1,0 +1,31 @@
+name: Check PR
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  build-app:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30 # job全体
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: "14.x"
+      - uses: actions/cache@v1
+        with:
+          path: ~/.cache/yarn/
+          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: ${{ runner.os }}-node12
+      - name: Install
+        run: yarn --frozen-lockfile
+      - name: Check build
+        run: yarn build
+      - name: Install firebase-tools
+        run: yarn add firebase-tools
+      - name: Check test with firestore emulator
+        run: |
+          yarn test:ci
+        env:
+          PROJECT_ID: apollo-server-with-firestore

@@ -1,1 +1,1 @@
-export { default } from "./firestoreDataLoader";
+export { FirestoreDataLoader } from "./firestoreDataLoader";
