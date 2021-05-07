@@ -1,9 +1,7 @@
 import { firestore } from "firebase-admin";
 
 export const getDocData = <T>(
-  doc:
-    | firestore.QueryDocumentSnapshot<firestore.DocumentData>
-    | firestore.DocumentSnapshot<firestore.DocumentData>
+  doc: firestore.QueryDocumentSnapshot<firestore.DocumentData> | firestore.DocumentSnapshot<firestore.DocumentData>
 ): T & {
   id: string;
 } => {

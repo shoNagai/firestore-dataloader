@@ -1,5 +1,5 @@
 import { DataSource } from "apollo-datasource";
-import DataLoader from "dataloader";
+import DataLoader, { Options } from "dataloader";
 import { firestore } from "firebase-admin";
 import { getDocData } from "./utils/getDocData";
 
@@ -14,12 +14,25 @@ export default class FirestoreDataLoader<T> extends DataSource {
    * constructor
    * It is assumed to be declared as one of the dataSources.
    * @param baseQuery CollectionReference or Query
+   * @param options DataLoader.Options. maxBatchSize is set to 10 due to firestore limitation.
    */
-  constructor(baseQuery: firestore.CollectionReference | firestore.Query) {
+  constructor(
+    baseQuery: firestore.CollectionReference | firestore.Query,
+    options?:
+      | Options<
+          string,
+          T & {
+            id: string;
+          },
+          string
+        >
+      | undefined
+  ) {
     super();
     this.baseQuery = baseQuery;
-    // maximum of 10 firestore in clauses.
     this.userLoader = new DataLoader((ids) => this.loadDataByIds(ids), {
+      ...options,
+      // maximum of 10 firestore in clauses.
       maxBatchSize: 10,
     });
   }
@@ -27,7 +40,7 @@ export default class FirestoreDataLoader<T> extends DataSource {
   /**
    * load datas by ids
    * @param {string[]} ids
-   * @returns {T} documents
+   * @returns documents
    */
   async loadDataByIds(
     ids: readonly string[]
@@ -36,9 +49,7 @@ export default class FirestoreDataLoader<T> extends DataSource {
       id: string;
     })[]
   > {
-    const snaps = await this.baseQuery
-      .where(firestore.FieldPath.documentId(), `in`, ids)
-      .get();
+    const snaps = await this.baseQuery.select().where(firestore.FieldPath.documentId(), `in`, ids).get();
     const docs = snaps.docs.map((doc) => getDocData<T>(doc));
     return docs.filter((doc) => ids.includes(doc.id));
   }
