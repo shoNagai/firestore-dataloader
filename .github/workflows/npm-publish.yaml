@@ -10,6 +10,7 @@ jobs:
   release:
     name: check version, add tag and release
     runs-on: ubuntu-latest
+    timeout-minutes: 30 # job全体
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
