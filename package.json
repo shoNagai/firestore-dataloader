@@ -1,0 +1,19 @@
+{
+  "name": "firestoreDataLoader",
+  "version": "1.0.0",
+  "description": "GraphQL Dataloader for Cloud Firestore.",
+  "main": "index.js",
+  "author": "shoNagai",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc"
+  },
+  "dependencies": {
+    "apollo-datasource": "^0.9.0",
+    "dataloader": "^2.0.0",
+    "firebase-admin": "^9.7.0"
+  },
+  "devDependencies": {
+    "typescript": "^4.2.4"
+  }
+}
