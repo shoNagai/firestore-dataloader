@@ -7,7 +7,7 @@
   "author": "shoNagai <strawberry4062@gmail.com>",
   "license": "MIT",
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com/@shoNagai"
+    "registry": "https://npm.pkg.github.com/"
   },
   "homepage": "https://github.com/shoNagai/firestoreDataLoader#readme",
   "repository": {
