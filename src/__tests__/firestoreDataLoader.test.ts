@@ -68,5 +68,21 @@ describe("firestoreDataLoader test", () => {
 
       expect(users).toEqual(USERS);
     });
+    test("items will be retrieved in the order of the keys you pass.", async () => {
+      const dataLoader = new FirestoreDataLoader<User>(firestore.collection(`users`) as any);
+
+      // sorted desc
+      const sortedUsers = USERS.sort((a, b) => {
+        return Number(b.id) - Number(a.id);
+      });
+
+      const PromiseUsers = sortedUsers.map((user) => {
+        return dataLoader.dataLoader.load(user.id);
+      });
+
+      const users = await Promise.all(PromiseUsers);
+
+      expect(users).toEqual(sortedUsers);
+    });
   });
 });
