@@ -7,7 +7,7 @@ import { getDocData } from "./utils/getDocData";
  * GraphQL DataLoader for Cloud Firestore.
  */
 export class FirestoreDataLoader<TDocument = any> extends DataSource {
-  public dataLoader: DataLoader<string, TDocument & { id: string }, string>;
+  public dataLoader: DataLoader<string, (TDocument & { id: string }) | null>;
 
   /**
    * constructor
@@ -20,15 +20,16 @@ export class FirestoreDataLoader<TDocument = any> extends DataSource {
     options?:
       | Options<
           string,
-          TDocument & {
-            id: string;
-          },
+          | (TDocument & {
+              id: string;
+            })
+          | null,
           string
         >
       | undefined
   ) {
     super();
-    this.dataLoader = new DataLoader((ids) => this.loadDataByIds(baseQuery, ids), {
+    this.dataLoader = new DataLoader((keys) => this.loadDataByKeys(baseQuery, keys), {
       ...options,
       // maximum of 10 firestore in clauses.
       maxBatchSize: 10,
@@ -36,23 +37,28 @@ export class FirestoreDataLoader<TDocument = any> extends DataSource {
   }
 
   /**
-   * load datas by ids
+   * load datas by keys
    * @param {firestore.CollectionReference | firestore.Query} baseQuery CollectionReference or Query
-   * @param {string[]} ids
+   * @param {string[]} keys
    * @returns documents
    */
-  async loadDataByIds(
+  async loadDataByKeys(
     baseQuery: firestore.CollectionReference | firestore.Query,
-    ids: readonly string[]
+    keys: readonly string[]
   ): Promise<
-    (TDocument & {
-      id: string;
-    })[]
+    (
+      | (TDocument & {
+          id: string;
+        })
+      | null
+    )[]
   > {
-    console.log("Call loadDataByIds", ids);
-    const snaps = await baseQuery.where(firestore.FieldPath.documentId(), `in`, ids).get();
-    if (snaps.empty) return [];
-    const docs = snaps.docs.map((doc) => getDocData<TDocument>(doc));
-    return docs.filter((doc) => ids.includes(doc.id));
+    console.log("Call loadDataByIds", keys);
+    const snapshot = await baseQuery.where(firestore.FieldPath.documentId(), `in`, keys).get();
+    if (snapshot.empty) return [];
+    return keys.map((key) => {
+      const doc = snapshot.docs.find((doc) => doc.id === key);
+      return doc ? getDocData<TDocument>(doc) : null;
+    });
   }
 }

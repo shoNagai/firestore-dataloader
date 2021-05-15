@@ -19,6 +19,18 @@ const USERS: User[] = [
     id: `2`,
     name: `tester2`,
   },
+  {
+    id: `3`,
+    name: `tester3`,
+  },
+  {
+    id: `4`,
+    name: `tester4`,
+  },
+  {
+    id: `5`,
+    name: `tester5`,
+  },
 ];
 
 beforeEach(async () => {
@@ -45,15 +57,32 @@ describe("firestoreDataLoader test", () => {
       });
       await batch.commit();
     });
-    test("load users", async () => {
+    test("default to ascending order by document ID.", async () => {
       const dataLoader = new FirestoreDataLoader<User>(firestore.collection(`users`) as any);
-      const Promise1 = dataLoader.dataLoader.load(USERS[0].id);
-      const Promise2 = dataLoader.dataLoader.load(USERS[1].id);
 
-      const [value1, value2] = await Promise.all([Promise1, Promise2]);
+      const PromiseUsers = USERS.map((user) => {
+        return dataLoader.dataLoader.load(user.id);
+      });
 
-      expect(value1.name).toBe(USERS[0].name);
-      expect(value2.name).toBe(USERS[1].name);
+      const users = await Promise.all(PromiseUsers);
+
+      expect(users).toEqual(USERS);
+    });
+    test("items will be retrieved in the order of the keys you pass.", async () => {
+      const dataLoader = new FirestoreDataLoader<User>(firestore.collection(`users`) as any);
+
+      // sorted desc
+      const sortedUsers = USERS.sort((a, b) => {
+        return Number(b.id) - Number(a.id);
+      });
+
+      const PromiseUsers = sortedUsers.map((user) => {
+        return dataLoader.dataLoader.load(user.id);
+      });
+
+      const users = await Promise.all(PromiseUsers);
+
+      expect(users).toEqual(sortedUsers);
     });
   });
 });
