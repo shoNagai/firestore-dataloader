@@ -15,13 +15,5 @@
   "dependencyDashboard": true,
   "pin": {
     "automerge": true
-  },
-  "packageRules": [
-    {
-      "automerge": true,
-      "major": {
-        "automerge": false
-      }
-    }
-  ]
+  }
 }
