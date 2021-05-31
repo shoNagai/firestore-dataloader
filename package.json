@@ -49,7 +49,7 @@
     "jest": "27.0.3",
     "lint-staged": "10.5.4",
     "prettier": "2.3.0",
-    "ts-jest": "27.0.1",
+    "ts-jest": "27.0.2",
     "ts-node": "10.0.0",
     "typescript": "4.3.2"
   },
