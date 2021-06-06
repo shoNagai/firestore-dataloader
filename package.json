@@ -1,6 +1,6 @@
 {
   "name": "firestore-dataloader",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "description": "GraphQL DataLoader for Cloud Firestore.",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -30,9 +30,9 @@
     "emulators:start": "yarn build && firebase emulators:start"
   },
   "dependencies": {
-    "@google-cloud/firestore": "^4.12.2",
-    "apollo-datasource": "^0.9.0",
-    "dataloader": "^2.0.0"
+    "apollo-datasource": "0.9.0",
+    "dataloader": "2.0.0",
+    "firebase-admin": "9.9.0"
   },
   "devDependencies": {
     "@commitlint/cli": "12.1.4",
@@ -45,7 +45,6 @@
     "eslint": "7.28.0",
     "eslint-config-prettier": "7.2.0",
     "eslint-plugin-prettier": "3.4.0",
-    "firebase-admin": "^9.9.0",
     "husky": "6.0.0",
     "jest": "27.0.4",
     "lint-staged": "10.5.4",
