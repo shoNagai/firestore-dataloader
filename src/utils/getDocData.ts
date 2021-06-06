@@ -1,7 +1,7 @@
-import { firestore } from "firebase-admin";
+import { DocumentData, DocumentSnapshot, QueryDocumentSnapshot } from "@google-cloud/firestore";
 
 export const getDocData = <T>(
-  doc: firestore.QueryDocumentSnapshot<firestore.DocumentData> | firestore.DocumentSnapshot<firestore.DocumentData>
+  doc: QueryDocumentSnapshot<DocumentData> | DocumentSnapshot<DocumentData>
 ): T & {
   id: string;
 } => {
