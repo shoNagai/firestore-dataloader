@@ -1,17 +1,8 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "config:base",
-    ":timezone(Asia/Tokyo)"
-  ],
-  "labels": [
-    "dependencies",
-    "renovate"
-  ],
-  "schedule": [
-    "after 11pm and before 5am every weekday",
-    "every weekend"
-  ],
+  "extends": ["config:base", ":timezone(Asia/Tokyo)"],
+  "labels": ["dependencies", "renovate"],
+  "schedule": ["after 11pm and before 5am every weekday", "every weekend"],
   "dependencyDashboard": true,
   "pin": {
     "automerge": true
