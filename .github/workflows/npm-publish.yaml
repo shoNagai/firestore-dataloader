@@ -18,7 +18,7 @@ jobs:
           node-version: "14.x"
           always-auth: true
           registry-url: https://registry.npmjs.org/
-      - uses: actions/cache@v2
+      - uses: actions/cache@v3
         with:
           path: ~/.cache/yarn/
           key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
