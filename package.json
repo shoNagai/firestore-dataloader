@@ -32,7 +32,7 @@
   "dependencies": {
     "apollo-datasource": "3.3.2",
     "dataloader": "2.1.0",
-    "firebase-admin": "11.4.1"
+    "firebase-admin": "11.5.0"
   },
   "devDependencies": {
     "@commitlint/cli": "17.4.1",
